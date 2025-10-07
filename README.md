@@ -141,7 +141,6 @@ npm start
 - 🧩 Intégrer un middleware de validation (`express-validator` / `zod`)  
 - 🧪 Écrire des tests unitaires avec Jest + Supertest  
 - 🐳 Ajouter Docker (API + MySQL) pour faciliter le déploiement  
-- ☁️ Héberger l’API sur Render/Heroku  
 
 ---
 
