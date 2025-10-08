@@ -74,13 +74,40 @@ npm start
 
 ## 📡 Endpoints disponibles
 
-| Méthode | Endpoint          | Description                |
-|---------|------------------|----------------------------|
-| GET     | `/api/users`     | Récupère tous les users    |
-| GET     | `/api/users/:id` | Récupère un user précis    |
-| POST    | `/api/users`     | Crée un nouvel user        |
-| PUT     | `/api/users/:id` | Met à jour un user         |
-| DELETE  | `/api/users/:id` | Supprime un user           |
+### 👤 Users
+
+| Méthode | Endpoint          | Description               |
+|---------|-------------------|---------------------------|
+| GET     | `/users`          | Récupère tous les users   |
+| GET     | `/users`          | Récupère un user précis   |
+| POST    | `/users`          | Crée un nouvel user       |
+| PATCH   | `/users`          | Modifie un user           |
+| DELETE  | `/users/:id`      | Supprime un user          |
+
+---
+
+### 📝 Posts
+
+| Méthode | Endpoint                    | Description                          |
+|---------|-----------------------------|--------------------------------------|
+| GET     | `/posts`                    | Récupère tous les posts              |
+| GET     | `/posts/:id`                | Récupère un post précis              |
+| GET     | `/posts/users/:userId`      | Récupère tous les posts d’un user    |
+| POST    | `/posts`                    | Crée un nouveau post                 |
+| PATCH   | `/posts`                    | Modifie un post                      |
+| DELETE  | `/posts/:id`                | Supprime un post par son ID          |
+| DELETE  | `/posts/users/:userId/posts`| Supprime tous les posts d’un user    |
+
+---
+
+### 💬 Comments
+
+| Méthode | Endpoint              | Description                       |
+|---------|-----------------------|-----------------------------------|
+| GET     | `/comments`           | Récupère tous les commentaires    |
+| GET     | `/comments/:id`       | Récupère un commentaire précis    |
+| PATCH   | `/comments`           | Modifie un commentaire            |
+| DELETE  | `/comments/:id`       | Supprime un commentaire           |
 
 ---
 
@@ -89,22 +116,34 @@ npm start
 ### Succès
 ```json
 {
-  "status": "success",
   "code": 200,
+  "status": "success",  
   "message": "User retrieved successfully",
-  "data": {
-    "id": 1,
-    "name": "John Doe"
-  }
+   "details": {
+        "userId": "5"
+    },
+    "data": {
+        "id": 5,
+        "firstname": "Emma",
+        "lastname": "Petit"
+    }
 }
 ```
 
 ### Erreur
 ```json
 {
-  "status": "error",
   "code": 400,
-  "message": "USER_NOT_FOUND"
+  "status": "error",
+  "message": "Some required fields are missing",
+  "details": {
+        "errorCode": "VALIDATION_ERROR",
+        "required": [
+            "firstname",
+            "lastname"
+          ]
+      },
+  "data": null
 }
 ```
 
@@ -137,10 +176,10 @@ npm start
 
 ## 🚀 Améliorations possibles
 
-- 📖 Ajouter une documentation Swagger/OpenAPI  
+- 📖 Ajouter une documentation 
 - 🧩 Intégrer un middleware de validation (`express-validator` / `zod`)  
 - 🧪 Écrire des tests unitaires avec Jest + Supertest  
-- 🐳 Ajouter Docker (API + MySQL) pour faciliter le déploiement  
+- 🐳 Ajouter Docker pour faciliter le déploiement  
 
 ---
 
