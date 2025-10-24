@@ -2,7 +2,7 @@ const db = require('../Services/Database');
 
 // Récupère un utilisateur par email
 async function findCredentialByEmail(email) {
-  const sql = `SELECT id, email, password_hash, role FROM user_credentials WHERE email = ? LIMIT 1`;
+  const sql = `SELECT id, email, password_hash, role FROM user_credentials WHERE email = "?" LIMIT 1`;
   const rows = await db.query(sql, [email]);
   return rows[0] || null;
 }

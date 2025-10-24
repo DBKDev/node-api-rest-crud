@@ -47,10 +47,12 @@ router.post('/login', async (req, res) => {
     }
 
     const cred = await credService.findCredentialByEmail(email);
-    if (!cred) return res.status(401).json({ error: 'Identifiants invalides' });
+    console.log(cred);
+    
+    if (!cred) return res.status(401).json({ error: 'Adresse email introuvable' });
 
     const ok = await bcrypt.compare(password, cred.password_hash);
-    if (!ok) return res.status(401).json({ error: 'Identifiants invalides' });
+    if (!ok) return res.status(401).json({ error: 'Mot de passe incorrect' });
 
     await credService.touchLastLogin(cred.id);
     const token = signAuth({ sub: cred.id, role: cred.role });
@@ -63,3 +65,5 @@ router.post('/login', async (req, res) => {
 });
 
 module.exports = router;
+
+
