@@ -46,9 +46,10 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'email et password requis' });
     }
 
-    const cred = await credService.findCredentialByEmail(email);
-    console.log(cred);
-    
+    const normEmail = (email ?? '').trim().toLowerCase();
+    console.log('login param:', { email, normEmail });
+    const cred = await credService.findCredentialByEmail(normEmail);
+    console.log('login cred:', cred);
     if (!cred) return res.status(401).json({ error: 'Adresse email introuvable' });
 
     const ok = await bcrypt.compare(password, cred.password_hash);
